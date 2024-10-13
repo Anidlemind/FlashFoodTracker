@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumed Dishes</title>
+    <link href="{{url_for('static', filename='bootstrap.min.css' )}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='theme.css' )}}" rel="stylesheet">
+    <style>
+        .button {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            font-size: 14px;
+            color: white;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .delete-button {
+            background-color: #f44336;
+        }
+        .delete-button:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <h1>Consumed Dishes</h1>
+    
+    <ul>
+        {% for consumed_dish in consumed_dishes %}
+            <li>
+                <strong>{{ consumed_dish.dish.name }}</strong> - {{ consumed_dish.grams }}g 
+                ({{ (3 * consumed_dish.dish.proteins + 2 * consumed_dish.dish.fats + 5 * consumed_dish.dish.carbs) * consumed_dish.grams / 100 }} kcal)
+                on {{ consumed_dish.date_consumed }}
+                
+                <a href="/consumed/edit/{{ consumed_dish.id }}" class="button">Edit</a>
+                
+                <form action="/consumed/delete/{{ consumed_dish.id }}" method="POST" style="display:inline;">
+                    <button type="submit" class="button delete-button">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <h2><a href="/consume">Add More Consumed Dishes</a></h2>
+</body>
+</html>

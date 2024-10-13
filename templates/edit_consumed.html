@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Consumed Dish</title>
+</head>
+<body>
+    <h1>Edit Consumed Dish</h1>
+    
+    <form action="/consumed/edit/{{ consumed_dish.id }}" method="POST">
+        <label for="dish_id">Dish:</label>
+        <select name="dish_id" id="dish_id" required>
+            {% for dish in dishes %}
+                <option value="{{ dish.id }}" {% if dish.id == consumed_dish.dish_id %}selected{% endif %}>
+                    {{ dish.name }}
+                </option>
+            {% endfor %}
+        </select><br>
+        
+        <label for="grams">Grams:</label>
+        <input type="number" step="0.01" name="grams" id="grams" value="{{ consumed_dish.grams }}" required><br>
+        
+        <label for="date">Date:</label>
+        <input type="date" name="date" id="date" value="{{ consumed_dish.date_consumed }}" required><br>
+        
+        <button type="submit">Update Consumed Dish</button>
+    </form>
+    
+    <a href="/consumed">Back to Consumed Dishes</a>
+</body>
+</html>
