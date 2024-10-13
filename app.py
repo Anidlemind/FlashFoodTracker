@@ -68,7 +68,7 @@ def edit(id):
     
     return render_template('edit.html', dish=dish)
 
-@app.route('/delete/<int:id>')
+@app.route('/delete/<int:id>', methods=['POST'])
 def delete(id):
     dish = Dish.query.get_or_404(id)
     
@@ -153,7 +153,6 @@ def delete_consumed(id):
 
     db.session.delete(consumed_dish)
     db.session.commit()
-    flash(f'Record for {consumed_dish.dish.name} on {consumed_dish.date_consumed} deleted successfully!', 'success')
     
     return redirect('/consumed')
 
