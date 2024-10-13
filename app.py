@@ -85,7 +85,7 @@ def plot_consumed():
 
     if start_date or end_date:
         if not start_date:
-            start_date = datetime.datetime.utcnow().date()
+            start_date = datetime.datetime(1, 1, 1).date()
         if not end_date:
             end_date = datetime.datetime.utcnow().date()
         consumed_dishes = ConsumedDish.query.filter(
@@ -107,7 +107,7 @@ def plot_consumed():
     dates = list(daily_calories.keys())
     calories = list(daily_calories.values())
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(18, 6))
     plt.plot(dates, calories, marker='o')
     plt.xlabel('Date')
     plt.ylabel('Calories')
